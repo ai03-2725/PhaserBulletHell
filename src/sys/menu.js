@@ -16,8 +16,12 @@ menu.prototype = {
     this.menuBG.alpha = 0;
     this.gameTitle.alpha = 0;
 
-    this.game.add.tween(this.menuBG).to( { alpha: 1 }, 1000, "Sine.easeOut", true);
-    this.game.add.tween(this.gameTitle).to( { alpha: 1 }, 1000, "Sine.easeOut", true);
+    this.game.add.tween(this.menuBG).to({
+      alpha: 1
+    }, 1000, "Sine.easeOut", true);
+    this.game.add.tween(this.gameTitle).to({
+      alpha: 1
+    }, 1000, "Sine.easeOut", true);
 
 
     // Spinning selector for options
@@ -28,7 +32,9 @@ menu.prototype = {
     this.selector.inMotion = true;
     this.game.add.existing(this.selector);
     this.selector.alpha = 0;
-    tween = this.game.add.tween(this.selector).to( { alpha: 1 }, 1000, "Sine.easeOut", true);
+    tween = this.game.add.tween(this.selector).to({
+      alpha: 1
+    }, 1000, "Sine.easeOut", true);
     tween.onComplete.add(this.enableKeyInput, this);
 
     // Arrow keys control selector
@@ -58,15 +64,18 @@ menu.prototype = {
         // 4. Change currently selected item
 
         this.disableKeyInput();
-        tween = this.game.add.tween(this.selector).to( {y: this.selector.y - this.menuTextHeight}, 100, "Sine.easeOut", true);
+        tween = this.game.add.tween(this.selector).to({
+          y: this.selector.y - this.menuTextHeight
+        }, 100, "Sine.easeOut", true);
         tween.onComplete.add(this.enableKeyInput, this);
         this.selectedOption--;
       }
-    }
-    else {
+    } else {
       if (this.selectedOption < 2) {
         this.disableKeyInput();
-        tween = this.game.add.tween(this.selector).to( {y: this.selector.y + this.menuTextHeight}, 100, "Sine.easeOut", true);
+        tween = this.game.add.tween(this.selector).to({
+          y: this.selector.y + this.menuTextHeight
+        }, 100, "Sine.easeOut", true);
         tween.onComplete.add(this.enableKeyInput, this);
         this.selectedOption++;
       }
@@ -81,6 +90,8 @@ menu.prototype = {
   enableKeyInput: function() {
     this.selector.inMotion = false;
   },
+
+  //TODO: Remove depricated function or modify
 
   startGame: function() {
     this.game.state.start("GameScreen");
