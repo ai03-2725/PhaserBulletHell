@@ -1,25 +1,26 @@
 var Boot = new Phaser.Class({
 
-    Extends: Phaser.Scene,
+  Extends: Phaser.Scene,
 
-    initialize:
+  initialize:
 
-    function Boot ()
-    {
-        console.log('Boot called');
-        Phaser.Scene.call(this, { key: 'boot' });
+    function Boot() {
+      console.log('Boot called');
+      Phaser.Scene.call(this, {
+        key: 'boot'
+      });
     },
 
-    preload: function ()
-    {
-        this.load.image('loadingBar', 'img/system/loading.png');
-    },
+  preload: function() {
 
-    create: function ()
-    {
-        console.log('Transferring to Preload');
+    this.load.image('loadingBar', 'img/system/loading.png');
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+  },
 
-        this.scene.start('Preload');
-    }
+  create: function() {
+    console.log('Transferring to Preload');
+
+    this.scene.start('Preload');
+  }
 
 });
