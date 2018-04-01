@@ -10,6 +10,7 @@ Boot.preload = function() {
 
   this.load.image('spinner', 'img/system/Spinner.png');
   this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+  this.load.script('Spinner', 'src/obj/spinner.js');
 };
 
 Boot.create = function() {

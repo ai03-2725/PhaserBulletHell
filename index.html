@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <title>Bullet Hell</title>
   <script src="phaser-3.3.0/dist/phaser.js"></script>
-  <script src="src/boot.js"></script>
-  <script src="src/loading.js"></script>
+  <script src="src/sys/boot.js"></script>
+  <script src="src/sys/loading.js"></script>
 
   <style type="text/css">
     body {
@@ -25,6 +25,9 @@
       physics: {
         default: 'arcade',
         arcade: {
+          gravity: {
+            y: 0
+          },
           debug: false
         }
       },
