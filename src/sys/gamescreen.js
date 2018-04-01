@@ -131,7 +131,7 @@ gameScreen.prototype = {
       this.player.x = this.PANEL;
     }
     else if (this.player.x > this.PANEL + this.WIDTH) {
-      this.player.x = this.PANEL + this.WIDT;
+      this.player.x = this.PANEL + this.WIDTH;
     }
 
     if (this.player.y < 0) {
