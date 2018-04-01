@@ -33,7 +33,7 @@ preload.prototype = {
     this.game.load.image("pr1inner", "img/obj/Pr1Inner.png");
     this.game.load.image("pr1outer", "img/obj/Pr1Outer.png");
     this.game.load.image("pr1tracker", "img/obj/Pr1Tracker.png");
-
+    this.game.load.image("pr1fire", "img/obj/Pr1Fire.png");
 
     // Loading system objects
     this.game.load.image("spinner", "img/sys/Spinner.png");

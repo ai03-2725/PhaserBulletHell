@@ -8,6 +8,8 @@ gameScreen.prototype = {
     this.HEIGHT = 800;
     this.PANEL = 200;
 
+    this.bulletTime = 0;
+
     // Load background
     this.bg = this.game.add.sprite(0, 0, 'genericcheckers');
 
@@ -20,6 +22,21 @@ gameScreen.prototype = {
 
     this.grid1.body.velocity.y = 300;
     this.grid2.body.velocity.y = 300;
+
+    // Create player bullet pool
+    this.playerBullets = this.game.add.group();
+    this.playerBullets.enableBody = true;
+    this.playerBullets.physicsBodyType = Phaser.Physics.ARCADE;
+
+    for (var i = 0; i < 10; i++) {
+      var b = this.playerBullets.create(0, 0, 'pr1fire');
+      b.name = 'bullet' + i;
+      b.anchor.setTo(0.5);
+      b.exists = false;
+      b.visible = false;
+      b.checkWorldBounds = true;
+      b.events.onOutOfBounds.add(this.playerBulletReset, this);
+    }
 
     // Create player objects
     this.player = this.game.add.sprite(500, 700, 'pr1');
@@ -69,6 +86,26 @@ gameScreen.prototype = {
 
   },
 
+  // Fire for the player
+  playerFire: function() {
+
+    if (this.game.time.now > this.bulletTime) {
+      bullet = this.playerBullets.getFirstExists(false);
+
+      if (bullet) {
+        bullet.reset(this.player.x, this.player.y - 40);
+        bullet.body.velocity.y = -2500;
+        this.bulletTime = this.game.time.now + 50;
+      }
+    }
+
+  },
+
+  // Called when player bullet falls off screen
+  playerBulletReset: function(bullet) {
+    bullet.kill();
+  },
+
   update: function() {
     this.updatePlayer();
     this.updateGrid();
@@ -107,17 +144,28 @@ gameScreen.prototype = {
     // Handle S show tracker
     if (this.sKey.isDown) {
       if (!this.sKeyHeld) {
-        this.game.add.tween(this.playerRing1).to( { alpha: 1 }, 75, "Sine.easeOut", true);
-        this.game.add.tween(this.playerRing2).to( { alpha: 1 }, 75, "Sine.easeOut", true);
-        this.game.add.tween(this.playerTracker).to( { alpha: 1 }, 75, "Sine.easeOut", true);
+        this.game.add.tween(this.playerRing1).to({
+          alpha: 1
+        }, 75, "Sine.easeOut", true);
+        this.game.add.tween(this.playerRing2).to({
+          alpha: 1
+        }, 75, "Sine.easeOut", true);
+        this.game.add.tween(this.playerTracker).to({
+          alpha: 1
+        }, 75, "Sine.easeOut", true);
         this.sKeyHeld = true;
       }
-    }
-    else {
+    } else {
       if (this.sKeyHeld) {
-        this.game.add.tween(this.playerRing1).to( { alpha: 0 }, 100, "Sine.easeIn", true);
-        this.game.add.tween(this.playerRing2).to( { alpha: 0 }, 100, "Sine.easeIn", true);
-        this.game.add.tween(this.playerTracker).to( { alpha: 0 }, 100, "Sine.easeIn", true);
+        this.game.add.tween(this.playerRing1).to({
+          alpha: 0
+        }, 100, "Sine.easeIn", true);
+        this.game.add.tween(this.playerRing2).to({
+          alpha: 0
+        }, 100, "Sine.easeIn", true);
+        this.game.add.tween(this.playerTracker).to({
+          alpha: 0
+        }, 100, "Sine.easeIn", true);
         this.sKeyHeld = false;
       }
     }
@@ -129,15 +177,13 @@ gameScreen.prototype = {
     // Check bounds
     if (this.player.x < this.PANEL) {
       this.player.x = this.PANEL;
-    }
-    else if (this.player.x > this.PANEL + this.WIDTH) {
+    } else if (this.player.x > this.PANEL + this.WIDTH) {
       this.player.x = this.PANEL + this.WIDTH;
     }
 
     if (this.player.y < 0) {
       this.player.y = 0;
-    }
-    else if (this.player.y > this.HEIGHT) {
+    } else if (this.player.y > this.HEIGHT) {
       this.player.y = this.HEIGHT;
     }
 
@@ -160,6 +206,11 @@ gameScreen.prototype = {
       this.playerRing2.body.angularAcceleration = -300;
     } else if (this.playerRing2.body.angularVelocity < -500) {
       this.playerRing2.body.angularAcceleration = 200;
+    }
+
+    // Fire if space is held
+    if (this.spaceKey.isDown) {
+      this.playerFire();
     }
 
   },
