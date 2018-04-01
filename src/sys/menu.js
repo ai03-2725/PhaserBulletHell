@@ -37,6 +37,10 @@ menu.prototype = {
     this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     this.downKey.onDown.add(this.moveSelector, this, 0, false);
 
+    // Space to select
+    this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.spaceKey.onDown.add(this.select, this, 0, false);
+
   },
 
   moveSelector: function(key, bool) {
@@ -79,6 +83,11 @@ menu.prototype = {
   },
 
   startGame: function() {
+    this.game.state.start("GameScreen");
+  },
+
+  select: function() {
+    //TODO: RN this just fires the game
     this.game.state.start("GameScreen");
   }
 }
