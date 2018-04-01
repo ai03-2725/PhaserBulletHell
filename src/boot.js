@@ -1,15 +1,25 @@
-var boot = function(game){
-	console.log("%cStarting my awesome game", "color:white; background:red");
-};
+var Boot = new Phaser.Class({
 
-boot.prototype = {
-	preload: function(){
-          this.game.load.image("loading","img/system/loading.png");
-	},
-  	create: function(){
-		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.scale.pageAlignHorizontally = true;
-		this.scale.setScreenSize();
-		this.game.state.start("Preload");
-	}
-}
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Boot ()
+    {
+        console.log('Boot called');
+        Phaser.Scene.call(this, { key: 'boot' });
+    },
+
+    preload: function ()
+    {
+        this.load.image('loadingBar', 'img/system/loading.png');
+    },
+
+    create: function ()
+    {
+        console.log('Transferring to Preload');
+
+        this.scene.start('Preload');
+    }
+
+});
