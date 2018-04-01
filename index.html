@@ -6,7 +6,7 @@
   <title>Bullet Hell</title>
   <script src="phaser-3.3.0/dist/phaser.js"></script>
   <script src="src/boot.js"></script>
-  <script src="src/preload.js"></script>
+  <script src="src/loading.js"></script>
 
   <style type="text/css">
     body {
@@ -28,7 +28,7 @@
           debug: false
         }
       },
-      scene: [Boot, Preload]
+      scene: [Boot, Loading]
       //scene: [Boot, Preload, Menu, GameScreen, GameOver]
     };
 

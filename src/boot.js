@@ -1,26 +1,19 @@
-var Boot = new Phaser.Class({
+// Boot - The first called scene.
+// Loads the bare minimum for Preload to run.
 
-  Extends: Phaser.Scene,
+var Boot = new Phaser.Scene('Boot');
 
-  initialize:
+Boot.preload = function() {
 
-    function Boot() {
-      console.log('Boot called');
-      Phaser.Scene.call(this, {
-        key: 'boot'
-      });
-    },
+  // Note - Boot is NOT the place to load tons of assets.
+  // Only load stuff needed to make preload (The loading screen) run.
 
-  preload: function() {
+  this.load.image('spinner', 'img/system/Spinner.png');
+  this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+};
 
-    this.load.image('loadingBar', 'img/system/loading.png');
-    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-  },
+Boot.create = function() {
+  console.log('Transferring to Load');
 
-  create: function() {
-    console.log('Transferring to Preload');
-
-    this.scene.start('Preload');
-  }
-
-});
+  this.scene.start('Loading');
+};
