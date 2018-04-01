@@ -36,7 +36,7 @@ var Preload = new Phaser.Class({
 
             console.log('Preload Complete');
 
-            this.scene.start('sceneB');
+            this.scene.start('Menu');
 
         }, this);
     }
