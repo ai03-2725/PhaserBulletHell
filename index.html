@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="lib/phaser.min.js"></script>
+  <script src="src/sys/boot.js"></script>
+  <script src="src/sys/preload.js"></script>
+  <script src="src/sys/menu.js"></script>
+  <script src="src/sys/gamescreen.js"></script>
+  <script src="src/sys/gameover.js"></script>
+  <style>
+    body {
+      margin: 0
+    }
+  </style>
+  <script>
+    (function() {
+      var cfg = {
+        width: 800,
+        height: 800,
+        multiTexture: true,
+        parent: 'game',
+        enableDebug: false,
+        renderer: Phaser.CANVAS,
+        antialias: true,
+      };
+      var game = new Phaser.Game(cfg);
+
+      game.clearBeforeRender = false;
+
+      game.state.add("Boot", boot);
+      game.state.add("Preload", preload);
+      //game.state.add("Menu", menu);
+      ////game.state.add("GameScreen", gameScreen);
+      //game.state.add("GameOver", gameOver);
+      game.state.start("Boot");
+
+    })();
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
